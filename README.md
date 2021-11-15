@@ -31,7 +31,8 @@ Class Descriptions:
 	 method takes in the name a user enters to submit as an answer for a question and reads it in, it then returns that value to be  
 	 treated as a terminal answer would be by the answer method. The viewSubmissions method takes in a course and quiz name and then  
 	 searches through the submissions master list for any submission containing the username of the current user. It allows them to pick  
-	 one of these submissions to view.  
+	 one of these submissions to view. Test cases were written to test each intended path in the Student menu system and ensure that all  
+	 outputs from methods in driver matched our expected outputs.  
 	   
 	-Teacher: The Teacher class contains the methods responsible for the teacher functionality as well as some quality of life methods  
 	 that are used in driver to reduce code recycling. The createCourse method creates the quiz title master file for the course as well  
@@ -44,4 +45,5 @@ Class Descriptions:
 	 quizzes. printSubmissions prints the names of the submissions. checkSubmissionExistence returns true if a submission exists to be  
 	 viewed, it is used to prevent misinputs. checkQuizExistence returns true if a quiz exists. checkCourseExistence returns true if a  
 	 given course exists. quizImport writes the imported quiz title to the master file of quizzes for a course and creates a file for   
-	 the new quiz.   
+	 the new quiz. Test cases were written to test each intended path in the Teacher menu system and ensure that all outputs from methods  
+	 in driver matched our expected outputs.  
