@@ -71,8 +71,6 @@ public class Driver {
 					}
 				} catch (InputMismatchException e) {
 					System.out.println(wrongType);
-					choice = 0;
-					input.nextLine();
 				}
 			} while (choice < 1 || choice > 2);
 			if (choice == 1) {
@@ -122,197 +120,198 @@ public class Driver {
 			} while (!Login.login(user, password));
 		}
 		
-		String type = Login.getClassification(user);
-
-		//control flow for teacher and student
-		if (type.equals("Teacher")) {
-			//Teacher implementation
-			System.out.println("\nWelcome Teacher " + user);
-			int ongoingChoice;
-			do {
+		if (choice != 3) {
+			//control flow for teacher and student
+			String type = Login.getClassification(user);
+			if (type.equals("Teacher")) {
+				//Teacher implementation
+				System.out.println("\nWelcome Teacher " + user);
+				int ongoingChoice;
 				do {
-					try {
-						System.out.println("1. Create Course\n2. View Course\n3. Exit");
-						ongoingChoice = input.nextInt();
-						if (ongoingChoice < 1 || ongoingChoice > 3) {
-							System.out.println(invalidSelection);
-						}
-					} catch (InputMismatchException e){
-						ongoingChoice = 0;
-						input.nextLine();
-						System.out.println(wrongType);
-					}
-				} while (ongoingChoice < 1 || ongoingChoice > 3);
-				if (ongoingChoice == 1) {
-					//Create Course
-					//creates CourseNameQuizzesTitles file and adds name it to coursenames file
-					System.out.println(coursePrompt);
-					input.nextLine();
-					String courseName = input.nextLine(); //check for duplicates in coursenames file
-					//new code
-					Teacher.createCourse(courseName);
-					
-				} else if (ongoingChoice == 2) {
-					//View C
-					//Can delete courses or view quiz
-					
-					//Finds course
-					//Displays course list
-					System.out.println("\nAvailable Courses:");
-					Teacher.printCourses();
-					System.out.println();
-					System.out.println(coursePrompt);
-					input.nextLine(); 
-					String course = input.nextLine();
-					
-					//view course menu
-					if (Teacher.checkCourseExistence(course)) {
-						do {
-							try {
-							System.out.println("1. Delete Course\n2. View Quizzes");
+					do {
+						try {
+							System.out.println("1. Create Course\n2. View Course\n3. Exit");
 							ongoingChoice = input.nextInt();
-							if (ongoingChoice < 1 || ongoingChoice > 2) {
+							if (ongoingChoice < 1 || ongoingChoice > 3) {
 								System.out.println(invalidSelection);
 							}
-							} catch (InputMismatchException e) {
-								ongoingChoice = 0;
-								System.out.println(wrongType);
-							}
-						} while (ongoingChoice < 1 || ongoingChoice > 2);
+						} catch (InputMismatchException e){
+							ongoingChoice = 0;
+							input.nextLine();
+							System.out.println(wrongType);
+						}
+					} while (ongoingChoice < 1 || ongoingChoice > 3);
+					if (ongoingChoice == 1) {
+						//Create Course
+						//creates CourseNameQuizzesTitles file and adds name it to coursenames file
+						System.out.println(coursePrompt);
+						input.nextLine();
+						String courseName = input.nextLine(); //check for duplicates in coursenames file
+						//new code
+						Teacher.createCourse(courseName);
 						
-						if (ongoingChoice == 1) {
-							//delete course
-							//delete coursenamequizzes file and delete from coursenames file, delete all associated quizzes
-							Teacher.deleteCourse(course);
-						} else {
-							//quiz menu
-							//displays quizzes
+					} else if (ongoingChoice == 2) {
+						//View C
+						//Can delete courses or view quiz
+						
+						//Finds course
+						//Displays course list
+						System.out.println("\nAvailable Courses:");
+						Teacher.printCourses();
+						System.out.println();
+						System.out.println(coursePrompt);
+						input.nextLine(); 
+						String course = input.nextLine();
+						
+						//view course menu
+						if (Teacher.checkCourseExistence(course)) {
 							do {
 								try {
-									System.out.println("\nView Menu\n1. Create Quiz\n2. Edit Quiz\n3. Delete Quiz\n4. View Submissions");
-									ongoingChoice = input.nextInt();
-									if (ongoingChoice < 1 || ongoingChoice > 4) {
-										System.out.println("Invalid choice, please try again.");
-									}
-								} catch (InputMismatchException e) {
-									System.out.println("Enter an integer choice");
-									ongoingChoice = 0;
+								System.out.println("1. Delete Course\n2. View Quizzes");
+								ongoingChoice = input.nextInt();
+								if (ongoingChoice < 1 || ongoingChoice > 2) {
+									System.out.println(invalidSelection);
 								}
-							} while (ongoingChoice < 1 || ongoingChoice > 4);
-							input.nextLine(); //clears return out of buffer
+								} catch (InputMismatchException e) {
+									ongoingChoice = 0;
+									System.out.println(wrongType);
+								}
+							} while (ongoingChoice < 1 || ongoingChoice > 2);
 							
 							if (ongoingChoice == 1) {
-								//Create Quiz
-								Teacher.createQuiz(input, course);
-							} else if (ongoingChoice == 2) {
-								//Edit Quiz
-								//lists quizzes
-								System.out.println("\nAvailable Quizzes:");
-								Teacher.printQuizzes(course);
-								System.out.println();
-								System.out.println("Enter Quiz Name you wish to edit: ");
-								String quizName = input.nextLine(); 
-								System.out.println();
-								//ensures quiz exists in coursenamesquizzes file
-								if (Teacher.checkQuizExistence(course, quizName)) {
-									Teacher.editQuiz(input, quizName, course);
-								}
-								
-							} else if (ongoingChoice == 3) {
-								//Delete Quiz
-								//deletes quiz file and removes it from coursenamequizlist file
-								System.out.println("Enter Quiz Name you wish to delete: ");
-								String quizName = input.nextLine();
-								//ensures quiz exists in coursenamesquizzes file
-								if (Teacher.checkQuizExistence(course, quizName)) {
-									Teacher.deleteQuiz(course, quizName);
-								}
+								//delete course
+								//delete coursenamequizzes file and delete from coursenames file, delete all associated quizzes
+								Teacher.deleteCourse(course);
 							} else {
-								//View Submissions
-								//TODO: implement
-								System.out.println("\nAvailable Quizzes:");
-								Teacher.printQuizzes(course);
-								System.out.println("\nEnter Quiz Name you wish to see submissions for: ");
-								String quizName = input.nextLine(); //ensure quiz exists in coursenamesquizzes file
-								if (Teacher.checkQuizExistence(course, quizName)) {
-									System.out.println("\nAvailable Submissions");
-									Teacher.printSubmissions(course, quizName);
-									System.out.println("\nEnter Submission you wish to view");
-									String submission = input.nextLine();
+								//quiz menu
+								//displays quizzes
+								do {
+									try {
+										System.out.println("\nView Menu\n1. Create Quiz\n2. Edit Quiz\n3. Delete Quiz\n4. View Submissions");
+										ongoingChoice = input.nextInt();
+										if (ongoingChoice < 1 || ongoingChoice > 4) {
+											System.out.println("Invalid choice, please try again.");
+										}
+									} catch (InputMismatchException e) {
+										System.out.println("Enter an integer choice");
+										ongoingChoice = 0;
+									}
+								} while (ongoingChoice < 1 || ongoingChoice > 4);
+								input.nextLine(); //clears return out of buffer
+								
+								if (ongoingChoice == 1) {
+									//Create Quiz
+									Teacher.createQuiz(input, course);
+								} else if (ongoingChoice == 2) {
+									//Edit Quiz
+									//lists quizzes
+									System.out.println("\nAvailable Quizzes:");
+									Teacher.printQuizzes(course);
 									System.out.println();
-									if (Teacher.checkSubmissionExistence(course, quizName, submission)) {
-										Teacher.viewSubmission(course, quizName, submission);
+									System.out.println("Enter Quiz Name you wish to edit: ");
+									String quizName = input.nextLine(); 
+									System.out.println();
+									//ensures quiz exists in coursenamesquizzes file
+									if (Teacher.checkQuizExistence(course, quizName)) {
+										Teacher.editQuiz(input, quizName, course);
+									}
+									
+								} else if (ongoingChoice == 3) {
+									//Delete Quiz
+									//deletes quiz file and removes it from coursenamequizlist file
+									System.out.println("Enter Quiz Name you wish to delete: ");
+									String quizName = input.nextLine();
+									//ensures quiz exists in coursenamesquizzes file
+									if (Teacher.checkQuizExistence(course, quizName)) {
+										Teacher.deleteQuiz(course, quizName);
+									}
+								} else {
+									//View Submissions
+									//TODO: implement
+									System.out.println("\nAvailable Quizzes:");
+									Teacher.printQuizzes(course);
+									System.out.println("\nEnter Quiz Name you wish to see submissions for: ");
+									String quizName = input.nextLine(); //ensure quiz exists in coursenamesquizzes file
+									if (Teacher.checkQuizExistence(course, quizName)) {
+										System.out.println("\nAvailable Submissions");
+										Teacher.printSubmissions(course, quizName);
+										System.out.println("\nEnter Submission you wish to view");
+										String submission = input.nextLine();
 										System.out.println();
+										if (Teacher.checkSubmissionExistence(course, quizName, submission)) {
+											Teacher.viewSubmission(course, quizName, submission);
+											System.out.println();
+										}
 									}
 								}
+								ongoingChoice = 1;	
 							}
-							ongoingChoice = 1;	
 						}
 					}
-				}
-			} while (ongoingChoice > 0 && ongoingChoice < 3);
-		} else {
-			//Student implementation
-			System.out.println("Welcome Student " + user);
-			int ongoingChoice;
-			do {
+				} while (ongoingChoice > 0 && ongoingChoice < 3);
+			} else {
+				//Student implementation
+				System.out.println("Welcome Student " + user);
+				int ongoingChoice;
 				do {
-					try {
-						System.out.println("1. Take Quiz\n2. View Submissions\n3. Exit");
-						ongoingChoice = input.nextInt();
-					} catch (InputMismatchException e) {
-						System.out.println("Enter a integer choice");
-						ongoingChoice = 4;
+					do {
+						try {
+							System.out.println("1. Take Quiz\n2. View Submissions\n3. Exit");
+							ongoingChoice = input.nextInt();
+						} catch (InputMismatchException e) {
+							System.out.println("Enter a integer choice");
+							ongoingChoice = 4;
+							input.nextLine();
+						}
+						if (ongoingChoice < 1 || ongoingChoice > 3) 
+							System.out.println("Invalid selection");
+						
+					} while (ongoingChoice < 1 || ongoingChoice > 3);
+					
+					if (ongoingChoice == 1) {
+						//Takes quiz
+						//lists courses
 						input.nextLine();
-					}
-					if (ongoingChoice < 1 || ongoingChoice > 3) 
-						System.out.println("Invalid selection");
-					
-				} while (ongoingChoice < 1 || ongoingChoice > 3);
-				
-				if (ongoingChoice == 1) {
-					//Takes quiz
-					//lists courses
-					input.nextLine();
-					System.out.println("\nAvailable Courses:");
-					Teacher.printCourses();
-					System.out.println("Which course would you like to access: ");
-					String course = input.nextLine(); //check to sure exists in coursenames.txt
-					if (Teacher.checkCourseExistence(course)) {
-						//lists quizzes in course
-						System.out.println("\nAvailable Quizzes:");
-						Teacher.printQuizzes(course);
-						System.out.println("Which quiz would you like to take: ");
-						String quiz = input.nextLine(); //ensure exists in coursenamesquizzes	
-						if (Teacher.checkQuizExistence(course, quiz)) {
-							
-							ArrayList<String> submission = Student.answer(input, course, quiz);
-							String total = submission.get(submission.size() - 1);
-							submission.remove(submission.size() - 1);
-							Student.writeFile(course, quiz, user, submission, total);
+						System.out.println("\nAvailable Courses:");
+						Teacher.printCourses();
+						System.out.println("Which course would you like to access: ");
+						String course = input.nextLine(); //check to sure exists in coursenames.txt
+						if (Teacher.checkCourseExistence(course)) {
+							//lists quizzes in course
+							System.out.println("\nAvailable Quizzes:");
+							Teacher.printQuizzes(course);
+							System.out.println("Which quiz would you like to take: ");
+							String quiz = input.nextLine(); //ensure exists in coursenamesquizzes	
+							if (Teacher.checkQuizExistence(course, quiz)) {
+								
+								ArrayList<String> submission = Student.answer(input, course, quiz);
+								String total = submission.get(submission.size() - 1);
+								submission.remove(submission.size() - 1);
+								Student.writeFile(course, quiz, user, submission, total);
+							}
+						}
+						
+					} else if (ongoingChoice == 2) {
+						//views submissions
+						//lists courses
+						input.nextLine();
+						System.out.println("\nAvailable Courses:");
+						Teacher.printCourses();
+						System.out.println("Which course would you like to access: ");
+						String course = input.nextLine(); //check to sure exists in coursenames.txt
+						if (Teacher.checkCourseExistence(course)) {
+							//lists quizzes in course
+							System.out.println("\nAvailable Quizzes:");
+							Teacher.printQuizzes(course);
+							System.out.println("Which quiz would you like to view your submissions for: ");
+							String quiz = input.nextLine(); //ensure exists in coursenamesquizzes	
+							if (Teacher.checkQuizExistence(course, quiz)) {
+								Student.viewSubmissions(input, course, quiz, user);
+							}
 						}
 					}
-					
-				} else if (ongoingChoice == 2) {
-					//views submissions
-					//lists courses
-					input.nextLine();
-					System.out.println("\nAvailable Courses:");
-					Teacher.printCourses();
-					System.out.println("Which course would you like to access: ");
-					String course = input.nextLine(); //check to sure exists in coursenames.txt
-					if (Teacher.checkCourseExistence(course)) {
-						//lists quizzes in course
-						System.out.println("\nAvailable Quizzes:");
-						Teacher.printQuizzes(course);
-						System.out.println("Which quiz would you like to view your submissions for: ");
-						String quiz = input.nextLine(); //ensure exists in coursenamesquizzes	
-						if (Teacher.checkQuizExistence(course, quiz)) {
-							Student.viewSubmissions(input, course, quiz, user);
-						}
-					}
-				}
-			} while(ongoingChoice == 1 || ongoingChoice == 2);
+				} while(ongoingChoice == 1 || ongoingChoice == 2);
+			}
 		}
 		System.out.println("Logged Out");
 		System.out.println("Have a Good Day");
