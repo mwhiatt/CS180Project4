@@ -1,11 +1,10 @@
 import java.util.*;
 import java.io.*;
-
 /**
  * Project 4 - Learning Management Quiz Tool - Teacher
  * Contains methods for teacher functionality
  * <p>
- *
+ * 
  * @author Matt Hiatt, Aryan Mathur, Aniket Mohanty, and Nathan Lo
  * @version 11/15/2021
  */
@@ -106,7 +105,6 @@ public class Teacher {
             System.out.println("Failed to delete file.");
         }
     }
-
     //DELETES QUIZ AND QUIZ SUBMISSIONS
     public static void deleteQuiz(String courseName, String quizName) {
         try {
@@ -177,7 +175,6 @@ public class Teacher {
         }
 
     }
-
     public static void createQuiz(Scanner input, String courseName) {
         try {
             boolean contWriting = false; // variable for knowing if they want to keep writing quizzes (do while loop)
@@ -196,8 +193,8 @@ public class Teacher {
                 }
             }
             if (importOrCreate.equalsIgnoreCase("yes")) { // if importing, do this
-                System.out.println("\nRemember File must be in the format:\nName of Quiz\nQuestion\nChoice A\nChoice B\nChoice C\n"
-                        + "Choice D\nCorrect Choice\nPoints");
+            	System.out.println("\nRemember File must be in the format:\nName of Quiz\nQuestion\nChoice A\nChoice B\nChoice C\n"
+            			+ "Choice D\nCorrect Choice\nPoints");
                 System.out.println("What is the name of the file?");
                 String premadeFile = input.nextLine();
                 boolean check = false;
@@ -331,7 +328,7 @@ public class Teacher {
                     System.out.println("Please input a valid question number. Which question would you like to edit?");
                     editQuestion = input.nextLine();
                 } else {
-                    properNumber = true;
+                	properNumber = true;
                 }
             }
             System.out.println("Please write the question");
@@ -413,9 +410,9 @@ public class Teacher {
             System.out.println("Error Displaying Quizzes.");
         }
     }
-
+    
     public static void printSubmissions(String courseName, String quizName) {
-        try {
+    	try {
             BufferedReader bfr = new BufferedReader(new FileReader(courseName + quizName + "Submissions.txt"));
             while (true) {
                 String line = bfr.readLine();
@@ -432,7 +429,7 @@ public class Teacher {
             System.out.println("Error Displaying Submissions.");
         }
     }
-
+    
     public static boolean checkSubmissionExistence(String courseName, String quizName, String submission) {
         try {
             BufferedReader bfr = new BufferedReader(new FileReader(courseName + quizName + "Submissions.txt"));
@@ -454,7 +451,7 @@ public class Teacher {
             return false;
         }
     }
-
+    
     public static boolean checkQuizExistence(String courseName, String quizName) {
         try {
             BufferedReader bfr = new BufferedReader(new FileReader(courseName + "Quizzes.txt"));
