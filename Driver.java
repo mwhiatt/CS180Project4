@@ -93,8 +93,14 @@ public class Driver {
 			} while (Login.isDuplicate(user) || user.isBlank());
 			
 			//Enter Password
-			System.out.println(passPrompt);
-			String password = input.nextLine();
+			String password;
+			do {
+				System.out.println(passPrompt);
+				password = input.nextLine();
+				if (password.isBlank()) {
+					System.out.println("You must enter a password!");
+				}
+			} while (password.isBlank());
 			
 			Login.writeNewUser(classification, user, password);
 		} else if (choice == 2) {
@@ -227,7 +233,6 @@ public class Driver {
 									}
 								} else {
 									//View Submissions
-									//TODO: implement
 									System.out.println("\nAvailable Quizzes:");
 									Teacher.printQuizzes(course);
 									System.out.println("\nEnter Quiz Name you wish to see submissions for: ");
