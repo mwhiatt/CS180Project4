@@ -33,10 +33,10 @@ public class Driver {
 		}
 		
 		//Creates coursenames file
-		File CourseNames = new File("CourseNames.txt");
-		if (!CourseNames.exists()) {
+		File courseNames = new File("CourseNames.txt");
+		if (!courseNames.exists()) {
 			try {
-				CourseNames.createNewFile();
+				courseNames.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -141,18 +141,26 @@ public class Driver {
 							if (ongoingChoice < 1 || ongoingChoice > 3) {
 								System.out.println(invalidSelection);
 							}
-						} catch (InputMismatchException e){
+						} catch (InputMismatchException e) {
 							ongoingChoice = 0;
 							input.nextLine();
 							System.out.println(wrongType);
 						}
 					} while (ongoingChoice < 1 || ongoingChoice > 3);
 					if (ongoingChoice == 1) {
+						input.nextLine();
 						//Create Course
 						//creates CourseNameQuizzesTitles file and adds name it to coursenames file
-						System.out.println(coursePrompt);
-						input.nextLine();
-						String courseName = input.nextLine(); //check for duplicates in coursenames file
+						String courseName;
+						do {
+							System.out.println(coursePrompt);
+							courseName = input.nextLine(); 
+							if (courseName.isBlank()) {
+								System.out.println("Course Name cannot be blank!");
+							}
+						} while (courseName.isBlank());
+						
+						//check for duplicates in coursenames file
 						//new code
 						Teacher.createCourse(courseName);
 						
@@ -173,11 +181,11 @@ public class Driver {
 						if (Teacher.checkCourseExistence(course)) {
 							do {
 								try {
-								System.out.println("1. Delete Course\n2. View Quizzes");
-								ongoingChoice = input.nextInt();
-								if (ongoingChoice < 1 || ongoingChoice > 2) {
-									System.out.println(invalidSelection);
-								}
+									System.out.println("1. Delete Course\n2. View Quizzes");
+									ongoingChoice = input.nextInt();
+									if (ongoingChoice < 1 || ongoingChoice > 2) {
+									    System.out.println(invalidSelection);
+								    }
 								} catch (InputMismatchException e) {
 									ongoingChoice = 0;
 									System.out.println(wrongType);
@@ -186,14 +194,16 @@ public class Driver {
 							
 							if (ongoingChoice == 1) {
 								//delete course
-								//delete coursenamequizzes file and delete from coursenames file, delete all associated quizzes
+								//delete coursenamequizzes file and delete from coursenames 
+								//file, delete all associated quizzes
 								Teacher.deleteCourse(course);
 							} else {
 								//quiz menu
 								//displays quizzes
 								do {
 									try {
-										System.out.println("\nView Menu\n1. Create Quiz\n2. Edit Quiz\n3. Delete Quiz\n4. View Submissions");
+										System.out.println("\nView Menu\n1. Create Quiz\n2. Edit Quiz\n3. "
+												  + "Delete Quiz\n4. View Submissions");
 										ongoingChoice = input.nextInt();
 										if (ongoingChoice < 1 || ongoingChoice > 4) {
 											System.out.println("Invalid choice, please try again.");
