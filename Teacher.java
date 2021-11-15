@@ -209,12 +209,12 @@ public class Teacher {
                     System.out.println("Overwriting the file, it already exists!");
                 }
                 File newQuizSubmissions = new File(courseName + fileName + "Submissions.txt");
-                myWriter = new PrintWriter(new FileOutputStream(courseName + fileName, true));
+                myWriter = new PrintWriter(new FileOutputStream(courseName + fileName + ".txt", true));
                 do { //looping for each question
                     System.out.println("Please write the question");
                     myWriter.write(input.nextLine() + "\n");
                     System.out.println("Please write answer A):");
-                    myWriter.write("A." + input.nextLine() + "\n");
+                    myWriter.write("A. " + input.nextLine() + "\n");
                     System.out.println("Please write answer B):");
                     myWriter.write("B. " + input.nextLine() + "\n");
                     System.out.println("Please write answer C):");
