@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class Student {
 
     public static ArrayList<String> answer(Scanner input, String course, String quiz) {
+    	
         String courseQuizFileName = course + quiz + ".txt";
         ArrayList<String> List = new ArrayList<>();
         try (BufferedReader bfr = new BufferedReader(new FileReader(courseQuizFileName))) {
@@ -179,21 +180,21 @@ public class Student {
             for (int i = 0; i < userSubmissions.size(); i++) {
                 System.out.println(i + 1 + ". " + userSubmissions.get(i));//prints list of user submissions
             }
-            boolean validInteger = false;
-            int submissionToView = 0;
-            while (validInteger == false) {
-                try {
-                    submissionToView = input.nextInt() - 1;// index of submission user wants to view
-                    validInteger = true;
-                } catch (InputMismatchException e) {
-                    System.out.println("Please enter a valid integer, not the quiz name.");
-                }
+            int submissionToView;
+            try {
+	            submissionToView = input.nextInt() - 1;// index of submission user wants to view
+	            input.nextLine();
+            } catch (InputMismatchException e) {
+            	submissionToView = -1;
             }
-            input.nextLine();
-            while (submissionToView < userSubmissions.size() || submissionToView < 0) {
-                System.out.println("Invalid Input: Please try again");
-                submissionToView = input.nextInt() - 1;
-                input.nextLine();
+            while (submissionToView > userSubmissions.size() - 1 || submissionToView < 0) {
+            	try {
+	                System.out.println("Invalid Input: Please try again");
+	                submissionToView = input.nextInt() - 1;
+	                input.nextLine();
+            	} catch (InputMismatchException e) {
+                	submissionToView = -1;
+            	}
             }
             try (BufferedReader bfr = new BufferedReader(new FileReader(userSubmissions.get(submissionToView)))) {
                 String s = bfr.readLine();
@@ -210,7 +211,7 @@ public class Student {
             System.out.println("Would you like to view more submissions? [Y/N]");//checks if user wants to
             // view more submissions
             prompt = input.nextLine();
-        } while ( prompt.equals("Y")); // continues while the user says yes
+        } while ( prompt.equalsIgnoreCase("Y")); // continues while the user says yes
     }
 	
 }

@@ -261,7 +261,7 @@ public class Driver {
 						input.nextLine();
 					} catch (InputMismatchException e) {
 						System.out.println("Enter a integer choice");
-						ongoingChoice = 3;
+						ongoingChoice = 4;
 					}
 					if (ongoingChoice < 1 || ongoingChoice > 3) 
 						System.out.println("Invalid selection");
@@ -282,6 +282,7 @@ public class Driver {
 						System.out.println("Which quiz would you like to take: ");
 						String quiz = input.nextLine(); //ensure exists in coursenamesquizzes	
 						if (Teacher.checkQuizExistence(course, quiz)) {
+							
 							ArrayList<String> submission = Student.answer(input, course, quiz);
 							String total = submission.get(submission.size() - 1);
 							submission.remove(submission.size() - 1);
