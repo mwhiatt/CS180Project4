@@ -256,17 +256,17 @@ public class Driver {
 			do {
 				do {
 					try {
-						System.out.println("1. Take Quiz\n2. Exit");
+						System.out.println("1. Take Quiz\n2. View Submissions\n3. Exit");
 						ongoingChoice = input.nextInt();
 						input.nextLine();
 					} catch (InputMismatchException e) {
 						System.out.println("Enter a integer choice");
 						ongoingChoice = 3;
 					}
-					if (ongoingChoice < 1 || ongoingChoice > 2) 
+					if (ongoingChoice < 1 || ongoingChoice > 3) 
 						System.out.println("Invalid selection");
 					
-				} while (ongoingChoice < 1 || ongoingChoice > 2);
+				} while (ongoingChoice < 1 || ongoingChoice > 3);
 				
 				if (ongoingChoice == 1) {
 					//Takes quiz
@@ -275,21 +275,39 @@ public class Driver {
 					Teacher.printCourses();
 					System.out.println("Which course would you like to access: ");
 					String course = input.nextLine(); //check to sure exists in coursenames.txt
-					
-					//lists quizzes in course
-					System.out.println("\nAvailable Quizzes:");
-					Teacher.printQuizzes(course);
-					System.out.println("Which quiz would you like to take: ");
-					String quiz = input.nextLine(); //ensure exists in coursenamesquizzes	
-					if (Teacher.checkQuizExistence(course, quiz)) {
-						ArrayList<String> submission = Student.answer(input, course, quiz);
-						String total = submission.get(submission.size() - 1);
-						submission.remove(submission.size() - 1);
-						Student.writeFile(course, quiz, user, submission, total);
+					if (Teacher.checkCourseExistence(course)) {
+						//lists quizzes in course
+						System.out.println("\nAvailable Quizzes:");
+						Teacher.printQuizzes(course);
+						System.out.println("Which quiz would you like to take: ");
+						String quiz = input.nextLine(); //ensure exists in coursenamesquizzes	
+						if (Teacher.checkQuizExistence(course, quiz)) {
+							ArrayList<String> submission = Student.answer(input, course, quiz);
+							String total = submission.get(submission.size() - 1);
+							submission.remove(submission.size() - 1);
+							Student.writeFile(course, quiz, user, submission, total);
+						}
 					}
 					
+				} else if (ongoingChoice == 2) {
+					//views submissions
+					//lists courses
+					System.out.println("\nAvailable Courses:");
+					Teacher.printCourses();
+					System.out.println("Which course would you like to access: ");
+					String course = input.nextLine(); //check to sure exists in coursenames.txt
+					if (Teacher.checkCourseExistence(course)) {
+						//lists quizzes in course
+						System.out.println("\nAvailable Quizzes:");
+						Teacher.printQuizzes(course);
+						System.out.println("Which quiz would you like to view your submissions for: ");
+						String quiz = input.nextLine(); //ensure exists in coursenamesquizzes	
+						if (Teacher.checkQuizExistence(course, quiz)) {
+							Student.viewSubmissions(input, course, quiz, user);
+						}
+					}
 				}
-			} while(ongoingChoice == 1);
+			} while(ongoingChoice == 1 || ongoingChoice == 2);
 		}
 		System.out.println("Logged Out");
 		System.out.println("Have a Good Day");
