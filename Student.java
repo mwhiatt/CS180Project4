@@ -5,8 +5,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * Project 4 - Learning Management Quiz Tool - Student
- * Contains methods for student functionality
+ * Project 4 - Learning Management Quiz Tool - Student Contains methods for
+ * student functionality
  * <p>
  * 
  * @author Matt Hiatt, Aryan Mathur, Aniket Mohanty, and Nathan Lo
@@ -14,202 +14,202 @@ import java.util.Scanner;
  */
 public class Student {
 
-    public static ArrayList<String> answer(Scanner input, String course, String quiz) {
-    	
-        String courseQuizFileName = course + quiz + ".txt";
-        ArrayList<String> List = new ArrayList<>();
-        try (BufferedReader bfr = new BufferedReader(new FileReader(courseQuizFileName))) {
-            String s = " ";
-            do {
-                for (int c = 0; c < 5; c++) {
-                        s = bfr.readLine();
-                        if (s == null) {
-                            continue;
-                        }
-                        System.out.println(s);
-                }
+	public static ArrayList<String> answer(Scanner input, String course, String quiz) {
 
-                if (s == null) {
-                    continue;
-                }
+		String courseQuizFileName = course + quiz + ".txt";
+		ArrayList<String> list = new ArrayList<>();
+		try (BufferedReader bfr = new BufferedReader(new FileReader(courseQuizFileName))) {
+			String s = " ";
+			do {
+				for (int c = 0; c < 5; c++) {
+					s = bfr.readLine();
+					if (s == null) {
+						continue;
+					}
+					System.out.println(s);
+				}
 
-                for (int c = 0; c < 2; c++) {
-                    if (c == 0) {
-                        s = bfr.readLine();
-                        List.add(s);//ans
-                    } else if (c == 1) {
-                        s = bfr.readLine();
-                        List.add(s);//points
-                    }
-                }
-                int inputType;
-                try {
-	                System.out.println("How would you like to answer this question\n1. Import files\n" +
-	                        "2. Answer through terminal");
-	                inputType = input.nextInt();
-	                input.nextLine();
-                } catch (InputMismatchException e) {
-                	inputType = 0;
-                	input.nextLine();
-                }
-                while (inputType != 1 && inputType != 2) {
-                	try {
-                		System.out.println("You must chose a number between 1 and 2!");
-    	                System.out.println("How would you like to answer this question\n1. Import files\n" +
-    	                        "2. Answer through terminal");
-    	                inputType = input.nextInt();
-    	                input.nextLine();
-                    } catch (InputMismatchException e) {
-                    	inputType = 0;
-                    	input.nextLine();
-                    }
-                }
-                if (inputType == 2) {
-                    System.out.println("\nPlease enter your answer option.");
-                    String answer = input.nextLine();
-                    List.add(answer);
+				if (s == null) {
+					continue;
+				}
 
-                } else if (inputType == 1) {
-                    System.out.println("\nRemember files should just contain the answer choice.\nPlease enter"
-                    		+ " your file name");
-                    String fileName = input.nextLine();
-                    String ans1 = answerImportFile(fileName);
-                    List.add(ans1);
-                }
-            } while (s != null);
-            int total = 0;
-            for (int i = 0; i < List.size(); i += 3) {
+				for (int c = 0; c < 2; c++) {
+					if (c == 0) {
+						s = bfr.readLine();
+						list.add(s); // ans
+					} else if (c == 1) {
+						s = bfr.readLine();
+						list.add(s); // points
+					}
+				}
+				int inputType;
+				try {
+					System.out.println("How would you like to answer this question\n1. Import files\n"
+							  + "2. Answer through terminal");
+					inputType = input.nextInt();
+					input.nextLine();
+				} catch (InputMismatchException e) {
+					inputType = 0;
+					input.nextLine();
+				}
+				while (inputType != 1 && inputType != 2) {
+					try {
+						System.out.println("You must chose a number between 1 and 2!");
+						System.out.println("How would you like to answer this question\n1. Import files\n"
+								  + "2. Answer through terminal");
+						inputType = input.nextInt();
+						input.nextLine();
+					} catch (InputMismatchException e) {
+						inputType = 0;
+						input.nextLine();
+					}
+				}
+				if (inputType == 2) {
+					System.out.println("\nPlease enter your answer option.");
+					String answer = input.nextLine();
+					list.add(answer);
 
-                if (!List.get(i).toLowerCase().equals(List.get(i+2).toLowerCase())) {
-                    List.set(i + 1, "0");
-                }
-                total += Integer.parseInt(List.get(i+1));
-            }
-            List.add(String.valueOf(total));
+				} else if (inputType == 1) {
+					System.out.println("\nRemember files should just contain the answer choice.\nPlease enter"
+							  + " your file name");
+					String fileName = input.nextLine();
+					String ans1 = answerImportFile(fileName);
+					list.add(ans1);
+				}
+			} while (s != null);
+			int total = 0;
+			for (int i = 0; i < list.size(); i += 3) {
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return List;
+				if (!list.get(i).toLowerCase().equals(list.get(i + 2).toLowerCase())) {
+					list.set(i + 1, "0");
+				}
+				total += Integer.parseInt(list.get(i + 1));
+			}
+			list.add(String.valueOf(total));
 
-    }
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return list;
 
-    public static void writeFile(String course, String quiz, String user, 
-    		ArrayList<String> ListToWrite, String total) {
-        int i = 1;
-        int n = 1;
-        String fileName = course + quiz + user + ".txt";
-        File f = new File(fileName);
-        while (f.exists()) {
-            i++;
-            fileName = course + quiz + user + i + ".txt";
-            f = new File(fileName);
-        }
-        try (PrintWriter pw = new PrintWriter(new FileOutputStream(fileName, false))) {
-            pw.println("Name: " + user);
-            for (int c = 2; c < ListToWrite.size(); c += 3) {
-                String ans = "Student Answer: " + ListToWrite.get(c);
-                String points;
-                if (ListToWrite.get(c).toLowerCase().equals(ListToWrite.get(c - 2).toLowerCase()))
-                {
-                	points = "Correct: " + ListToWrite.get(c  - 1);
-                } else {
-                	points = "Incorrect: 0"; 
-                }
-                String fileInput = n + ". " + ans + ", " + points;
-                n++;
-                pw.println(fileInput);
-            }
-            pw.println("Points Earned : " + total);
-            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
-            pw.println("Timestamp: " + timeStamp);
-        } catch ( FileNotFoundException e) {
-            e.printStackTrace();
-        }
+	}
 
-        String masterFileName = course + quiz + "Submissions.txt";
-        try (PrintWriter pw = new PrintWriter(new FileOutputStream(masterFileName, true))) {
-            pw.println(fileName);
-        } catch ( FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+	public static void writeFile(String course, String quiz, String user, ArrayList<String> listToWrite, String total) {
+		int i = 1;
+		int n = 1;
+		String fileName = course + quiz + user + ".txt";
+		File f = new File(fileName);
+		while (f.exists()) {
+			i++;
+			fileName = course + quiz + user + i + ".txt";
+			f = new File(fileName);
+		}
+		try (PrintWriter pw = new PrintWriter(new FileOutputStream(fileName, false))) {
+			pw.println("Name: " + user);
+			for (int c = 2; c < listToWrite.size(); c += 3) {
+				String ans = "Student Answer: " + listToWrite.get(c);
+				String points;
+				if (listToWrite.get(c).toLowerCase().equals(listToWrite.get(c - 2).toLowerCase())) {
+					points = "Correct: " + listToWrite.get(c - 1);
+				} else {
+					points = "Incorrect: 0";
+				}
+				String fileInput = n + ". " + ans + ", " + points;
+				n++;
+				pw.println(fileInput);
+			}
+			pw.println("Points Earned : " + total);
+			String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+			pw.println("Timestamp: " + timeStamp);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
-    public static String answerImportFile(String fileName) throws IOException {
-        File f = null;
-        FileReader fileReader = null;
-        BufferedReader bufferedReader = null;
-        String ans;
-        try {
-            f = new File(fileName + ".txt");
-            fileReader = new FileReader(f);
-            bufferedReader = new BufferedReader(fileReader);
-            ans = bufferedReader.readLine();
+		String masterFileName = course + quiz + "Submissions.txt";
+		try (PrintWriter pw = new PrintWriter(new FileOutputStream(masterFileName, true))) {
+			pw.println(fileName);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException();
-        } catch (IOException e) {
-            throw new IOException();
-        }
-        bufferedReader.close();
-        return ans;
-    }
-        //Asks user whether he/she/they want to view previous submissions after they enter course and quiz name
-    public static void viewSubmissions(Scanner input, String course, String quiz, String user) {
-        String fileName = course + quiz + "Submissions.txt";
-        ArrayList<String> userSubmissions = new ArrayList<>(); //ArrayList that holds a particular user's submissions
-        String prompt = "";
-        boolean properInput = false;
-        try (BufferedReader bfr = new BufferedReader(new FileReader(fileName))) {
-            String s = bfr.readLine();
-            while (s != null) {
-                if (s.contains(user)) { //checks whether a submission contains username
-                    userSubmissions.add(s); // adds it to ArrayList
-                }
-                s = bfr.readLine();
-            }
+	public static String answerImportFile(String fileName) throws IOException {
+		File f = null;
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		String ans;
+		try {
+			f = new File(fileName + ".txt");
+			fileReader = new FileReader(f);
+			bufferedReader = new BufferedReader(fileReader);
+			ans = bufferedReader.readLine();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        do {
-            System.out.println("Which submission would you like to view?");
-            for (int i = 0; i < userSubmissions.size(); i++) {
-                System.out.println(i + 1 + ". " + userSubmissions.get(i));//prints list of user submissions
-            }
-            String submissionToView = input.nextLine();
-            int requestedSubmission = 0;
-            while (!properInput) {
-                try {
-                    requestedSubmission = Integer.parseInt(submissionToView) - 1;
-                    properInput = true;
-                } catch (NumberFormatException e) {
-                    System.out.println("Please input an integer, not the name. " +
-                            "Which submission would you like to view?");
-                    submissionToView = input.nextLine(); // index of submission user wants to view
-                }
-            }
-            properInput = false;
-            try (BufferedReader bfr = new BufferedReader(new FileReader(userSubmissions.get(requestedSubmission)))) {
-                String s = bfr.readLine();
-                while (s != null) {
-                    System.out.println(s);//prints the user submission line by line
-                    s = bfr.readLine();
-                }
+		} catch (FileNotFoundException e) {
+			throw new FileNotFoundException();
+		} catch (IOException e) {
+			throw new IOException();
+		}
+		bufferedReader.close();
+		return ans;
+	}
 
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Would you like to view more submissions? [Y/N]");//checks if user wants to
-            // view more submissions
-            prompt = input.nextLine();
-        } while ( prompt.equalsIgnoreCase("Y")); // continues while the user says yes
-    }
-	
+	// Asks user whether he/she/they want to view previous submissions after they
+	// enter course and quiz name
+	public static void viewSubmissions(Scanner input, String course, String quiz, String user) {
+		String fileName = course + quiz + "Submissions.txt";
+		ArrayList<String> userSubmissions = new ArrayList<>(); // ArrayList that holds a particular user's submissions
+		String prompt = "";
+		boolean properInput = false;
+		try (BufferedReader bfr = new BufferedReader(new FileReader(fileName))) {
+			String s = bfr.readLine();
+			while (s != null) {
+				if (s.contains(user)) { // checks whether a submission contains username
+					userSubmissions.add(s); // adds it to ArrayList
+				}
+				s = bfr.readLine();
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		do {
+			System.out.println("Which submission would you like to view?");
+			for (int i = 0; i < userSubmissions.size(); i++) {
+				System.out.println(i + 1 + ". " + userSubmissions.get(i)); // prints list of user submissions
+			}
+			String submissionToView = input.nextLine();
+			int requestedSubmission = 0;
+			while (!properInput) {
+				try {
+					requestedSubmission = Integer.parseInt(submissionToView) - 1;
+					properInput = true;
+				} catch (NumberFormatException e) {
+					System.out.println(
+							  "Please input an integer, not the name. " + "Which submission would you like to view?");
+					submissionToView = input.nextLine(); // index of submission user wants to view
+				}
+			}
+			properInput = false;
+			try (BufferedReader bfr = new BufferedReader(new FileReader(userSubmissions.get(requestedSubmission)))) {
+				String s = bfr.readLine();
+				while (s != null) {
+					System.out.println(s); // prints the user submission line by line
+					s = bfr.readLine();
+				}
+
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println("Would you like to view more submissions? [Y/N]"); // checks if user wants to
+			// view more submissions
+			prompt = input.nextLine();
+		} while (prompt.equalsIgnoreCase("Y")); // continues while the user says yes
+	}
+
 }
