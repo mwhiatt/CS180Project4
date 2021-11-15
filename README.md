@@ -8,18 +8,20 @@ To run the project, ensure the following files are included in your directory:
 Parts submitted by:  
 	-Vocareum:  
 	-Report on Brightspace:   
-Class Descriptions:
+Class Descriptions:  
 	-Driver: The Driver class contains the main method for the project. It contains the menus the user interacts with.  
 	 It makes method calls to the other classes in order to execute the options in the menus. It was tested with improper   
 	 inputs and protected against InputMismatchExceptions in order to ensure the program will not crash or malfunction  
-	 when the user enters unintended inputs. It conntains no methods besides the main method.   
+	 when the user enters unintended inputs. It conntains no methods besides the main method. 
+	   
 	-Login: The Login class contains methods that are called in Driver to sign users in to the program. It contains   
 	 the isDuplicate method which returns true or false depending on if the username being entered is already stored  
 	 in logins.txt. It contains the writeNewUser method which writes a new classification, username, and password to the  
 	 logins.txt file. It contains the login method which returns true or false depending on if the username and password  
 	 a user enters match a pair stored in the logins.txt file. It contains the getClassification method which returns the   
 	 Teacher or Student classification of a given user. It was tested with test cases to ensure the methods are at full  
-	 functionality and all inputs that could be received as parameters from Driver are handled.   
+	 functionality and all inputs that could be received as parameters from Driver are handled.  
+	   
 	-Student: The Student class contains methods that are called in Driver to implement the Student functionality. The methods  
 	 are as follows. The answer method takes in the scanner, a course name, and a quiz name and displays the quiz for the student  
 	 to take. It also accepts the answers from the student and creates their submission file. It returns an arraylist of the students  
@@ -29,6 +31,7 @@ Class Descriptions:
 	 treated as a terminal answer would be by the answer method. The viewSubmissions method takes in a course and quiz name and then  
 	 searches through the submissions master list for any submission containing the username of the current user. It allows them to pick  
 	 one of these submissions to view.  
+	   
 	-Teacher: The Teacher class contains the methods responsible for the teacher functionality as well as some quality of life methods  
 	 that are used in driver to reduce code recycling. The createCourse method creates the quiz title master file for the course as well  
 	 as adds the course title to the CourseNames file. The deleteCourse method delets a course from the CourseNames file and deletes all   
