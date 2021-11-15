@@ -161,6 +161,7 @@ public class Student {
         String fileName = course + quiz + "Submissions.txt";
         ArrayList<String> userSubmissions = new ArrayList<>(); //ArrayList that holds a particular user's submissions
         String prompt = "";
+        boolean properInput = false;
         try (BufferedReader bfr = new BufferedReader(new FileReader(fileName))) {
             String s = bfr.readLine();
             while (s != null) {
@@ -180,23 +181,20 @@ public class Student {
             for (int i = 0; i < userSubmissions.size(); i++) {
                 System.out.println(i + 1 + ". " + userSubmissions.get(i));//prints list of user submissions
             }
-            int submissionToView;
-            try {
-	            submissionToView = input.nextInt() - 1;// index of submission user wants to view
-	            input.nextLine();
-            } catch (InputMismatchException e) {
-            	submissionToView = -1;
+            String submissionToView = input.nextLine();
+            int requestedSubmission = 0;
+            while (!properInput) {
+                try {
+                    requestedSubmission = Integer.parseInt(submissionToView) - 1;
+                    properInput = true;
+                } catch (NumberFormatException e) {
+                    System.out.println("Please input an integer, not the name. " +
+                            "Which submission would you like to view?");
+                    submissionToView = input.nextLine(); // index of submission user wants to view
+                }
             }
-            while (submissionToView > userSubmissions.size() - 1 || submissionToView < 0) {
-            	try {
-	                System.out.println("Invalid Input: Please try again");
-	                submissionToView = input.nextInt() - 1;
-	                input.nextLine();
-            	} catch (InputMismatchException e) {
-                	submissionToView = -1;
-            	}
-            }
-            try (BufferedReader bfr = new BufferedReader(new FileReader(userSubmissions.get(submissionToView)))) {
+            properInput = false;
+            try (BufferedReader bfr = new BufferedReader(new FileReader(userSubmissions.get(requestedSubmission)))) {
                 String s = bfr.readLine();
                 while (s != null) {
                     System.out.println(s);//prints the user submission line by line
