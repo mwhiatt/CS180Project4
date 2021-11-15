@@ -179,7 +179,16 @@ public class Student {
             for (int i = 0; i < userSubmissions.size(); i++) {
                 System.out.println(i + 1 + ". " + userSubmissions.get(i));//prints list of user submissions
             }
-            int submissionToView = input.nextInt() - 1;// index of submission user wants to view
+            boolean validInteger = false;
+            int submissionToView = 0;
+            while (validInteger == false) {
+                try {
+                    submissionToView = input.nextInt() - 1;// index of submission user wants to view
+                    validInteger = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("Please enter a valid integer, not the quiz name.");
+                }
+            }
             input.nextLine();
             while (submissionToView < userSubmissions.size() || submissionToView < 0) {
                 System.out.println("Invalid Input: Please try again");

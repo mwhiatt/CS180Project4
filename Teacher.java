@@ -1,10 +1,11 @@
 import java.util.*;
 import java.io.*;
+
 /**
  * Project 4 - Learning Management Quiz Tool - Teacher
  * Contains methods for teacher functionality
  * <p>
- * 
+ *
  * @author Matt Hiatt, Aryan Mathur, Aniket Mohanty, and Nathan Lo
  * @version 11/15/2021
  */
@@ -105,6 +106,7 @@ public class Teacher {
             System.out.println("Failed to delete file.");
         }
     }
+
     //DELETES QUIZ AND QUIZ SUBMISSIONS
     public static void deleteQuiz(String courseName, String quizName) {
         try {
@@ -175,6 +177,7 @@ public class Teacher {
         }
 
     }
+
     public static void createQuiz(Scanner input, String courseName) {
         try {
             boolean contWriting = false; // variable for knowing if they want to keep writing quizzes (do while loop)
@@ -193,11 +196,32 @@ public class Teacher {
                 }
             }
             if (importOrCreate.equalsIgnoreCase("yes")) { // if importing, do this
-            	System.out.println("\nRemeber File must be in the format:\nQuestion\nChoice A\nChoice B\nChoice C\n"
-            			+ "Choice D\nCorrect Choice\nPoints");
+                System.out.println("\nRemember File must be in the format:\nName of Quiz\nQuestion\nChoice A\nChoice B\nChoice C\n"
+                        + "Choice D\nCorrect Choice\nPoints");
                 System.out.println("What is the name of the file?");
                 String premadeFile = input.nextLine();
-                quizImport(premadeFile, courseName);
+                boolean check = false;
+                do {
+                    try {
+                        quizImport(premadeFile, courseName);
+                    } catch (FileNotFoundException e) {
+                        check = true;
+                        System.out.println("File not found! Please try again");
+                        System.out.println("\nRemeber File must be in the format:" +
+                                "\nQuestion\nChoice A\nChoice B\nChoice C\n"
+                                + "Choice D\nCorrect Choice\nPoints");
+                        System.out.println("What is the name of the file?");
+                        premadeFile = input.nextLine();
+                    } catch (IOException e) {
+                        check = true;
+                        System.out.println("Error! Please try again");
+                        System.out.println("\nRemeber File must be in the format:" +
+                                "\nQuestion\nChoice A\nChoice B\nChoice C\n"
+                                + "Choice D\nCorrect Choice\nPoints");
+                        System.out.println("What is the name of the file?");
+                        premadeFile = input.nextLine();
+                    }
+                } while (check);
             } else { //if creating, do this
                 System.out.println("What would you like to name the quiz?");
                 fileName = input.nextLine();
@@ -214,7 +238,7 @@ public class Teacher {
                     System.out.println("Please write the question");
                     myWriter.write(input.nextLine() + "\n");
                     System.out.println("Please write answer A):");
-                    myWriter.write("A. " + input.nextLine() + "\n");
+                    myWriter.write("A." + input.nextLine() + "\n");
                     System.out.println("Please write answer B):");
                     myWriter.write("B. " + input.nextLine() + "\n");
                     System.out.println("Please write answer C):");
@@ -246,7 +270,7 @@ public class Teacher {
                 myWriter.close();
                 // Writing to Course Name + Quizzes
                 File allQuizzes = new File(courseName + "Quizzes.txt");
-                if (allQuizzes.createNewFile()) {
+                if (allQuizzes.exists()) {
                     System.out.println("Creating a new file!");
                 } else {
                     System.out.println("Appending the file, it already exists!");
@@ -307,7 +331,7 @@ public class Teacher {
                     System.out.println("Please input a valid question number. Which question would you like to edit?");
                     editQuestion = input.nextLine();
                 } else {
-                	properNumber = true;
+                    properNumber = true;
                 }
             }
             System.out.println("Please write the question");
@@ -389,9 +413,9 @@ public class Teacher {
             System.out.println("Error Displaying Quizzes.");
         }
     }
-    
+
     public static void printSubmissions(String courseName, String quizName) {
-    	try {
+        try {
             BufferedReader bfr = new BufferedReader(new FileReader(courseName + quizName + "Submissions.txt"));
             while (true) {
                 String line = bfr.readLine();
@@ -408,7 +432,7 @@ public class Teacher {
             System.out.println("Error Displaying Submissions.");
         }
     }
-    
+
     public static boolean checkSubmissionExistence(String courseName, String quizName, String submission) {
         try {
             BufferedReader bfr = new BufferedReader(new FileReader(courseName + quizName + "Submissions.txt"));
@@ -430,7 +454,7 @@ public class Teacher {
             return false;
         }
     }
-    
+
     public static boolean checkQuizExistence(String courseName, String quizName) {
         try {
             BufferedReader bfr = new BufferedReader(new FileReader(courseName + "Quizzes.txt"));
@@ -475,18 +499,34 @@ public class Teacher {
         }
     }
 
-    public static void quizImport(String quizName, String courseName) throws IOException {
+    public static void quizImport(String fileName, String courseName) throws IOException {
         /*
         File Format:
         // Creates file with teacher quiz
         //
          */
-        quizName = quizName.replace(courseName, "");
+
         try {
+            File f = new File(fileName + ".txt");
+            FileReader fileReader = new FileReader(f);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String quizName = bufferedReader.readLine();
             PrintWriter output = new PrintWriter(new BufferedWriter
                     (new FileWriter(courseName + "Quizzes.txt", true)));
             output.write(quizName + "\n");
             output.close();
+            PrintWriter fileWriter = new PrintWriter(new BufferedWriter
+                    (new FileWriter(courseName + quizName + ".txt")));
+            String input = bufferedReader.readLine();
+            do {
+                fileWriter.println(input);
+                //System.out.println(input);
+                input = bufferedReader.readLine();
+            } while (input != null);
+
+            bufferedReader.close();
+            fileWriter.close();
             File submissions = new File(courseName + quizName + "Submissions.txt");
             submissions.createNewFile();
         } catch (FileNotFoundException e) {
@@ -494,5 +534,6 @@ public class Teacher {
         } catch (IOException e) {
             throw new IOException();
         }
+
     }
 }
