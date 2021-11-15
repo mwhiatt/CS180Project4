@@ -1,8 +1,9 @@
 import java.io.*;
 import java.util.*;
+
 /**
- * Project 4 - Learning Management Quiz Tool - Login
- * Contains methods for login system functionality
+ * Project 4 - Learning Management Quiz Tool - Login Contains methods for login
+ * system functionality
  * <p>
  * 
  * @author Matt Hiatt, Aryan Mathur, Aniket Mohanty, and Nathan Lo
@@ -22,7 +23,7 @@ public class Login {
 					content.add(line);
 				}
 			}
-			
+
 			for (int i = 1; i < content.size(); i += 3) {
 				if (user.equals(content.get(i))) {
 					bfr.close();
@@ -31,12 +32,12 @@ public class Login {
 			}
 			bfr.close();
 			return false;
-		} catch(IOException e) {
+		} catch (IOException e) {
 			System.out.println("Error validating username, please try again.");
 			return true;
 		}
 	}
-	
+
 	public static void writeNewUser(String classification, String user, String password) {
 		try {
 			PrintWriter pw = new PrintWriter(new FileOutputStream("login.txt", true));
@@ -44,11 +45,11 @@ public class Login {
 			pw.println(user);
 			pw.println(password);
 			pw.close();
-		} catch(IOException e) {
+		} catch (IOException e) {
 			System.out.println("Error creating account, please exit and try again.");
 		}
 	}
-	
+
 	public static boolean login(String user, String password) {
 		try {
 			BufferedReader bfr = new BufferedReader(new FileReader(new File("login.txt")));
@@ -61,7 +62,7 @@ public class Login {
 					content.add(line);
 				}
 			}
-			
+
 			for (int i = 1; i < content.size(); i += 3) {
 				if (user.equals(content.get(i))) {
 					if (password.equals(content.get(i + 1))) {
@@ -75,12 +76,12 @@ public class Login {
 			}
 			bfr.close();
 			return false;
-		} catch(IOException e) {
+		} catch (IOException e) {
 			System.out.println("Error validating username, please try again.");
 			return false;
 		}
 	}
-	
+
 	public static String getClassification(String user) {
 		try {
 			BufferedReader bfr = new BufferedReader(new FileReader(new File("login.txt")));
@@ -93,7 +94,7 @@ public class Login {
 					content.add(line);
 				}
 			}
-			
+
 			for (int i = 1; i < content.size(); i += 3) {
 				if (user.equals(content.get(i))) {
 					return content.get(i - 1);
@@ -101,7 +102,7 @@ public class Login {
 			}
 			bfr.close();
 
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
