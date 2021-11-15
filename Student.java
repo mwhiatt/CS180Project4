@@ -155,4 +155,53 @@ public class Student {
         bufferedReader.close();
         return ans;
     }
+        //Asks user whether he/she/they want to view previous submissions after they enter course and quiz name
+    public static void viewSubmissions(Scanner input, String course, String quiz, String user) {
+        String fileName = course + quiz + "Submissions.txt";
+        ArrayList<String> userSubmissions = new ArrayList<>(); //ArrayList that holds a particular user's submissions
+        String prompt = "";
+        try (BufferedReader bfr = new BufferedReader(new FileReader(fileName))) {
+            String s = bfr.readLine();
+            while (s != null) {
+                if (s.contains(user)) { //checks whether a submission contains username
+                    userSubmissions.add(s); // adds it to ArrayList
+                }
+                s = bfr.readLine();
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        do {
+            System.out.println("Which submission would you like to view?");
+            for (int i = 0; i < userSubmissions.size(); i++) {
+                System.out.println(i + 1 + ". " + userSubmissions.get(i));//prints list of user submissions
+            }
+            int submissionToView = input.nextInt() - 1;// index of submission user wants to view
+            input.nextLine();
+            while (submissionToView < userSubmissions.size() || submissionToView < 0) {
+                System.out.println("Invalid Input: Please try again");
+                submissionToView = input.nextInt() - 1;
+                input.nextLine();
+            }
+            try (BufferedReader bfr = new BufferedReader(new FileReader(userSubmissions.get(submissionToView)))) {
+                String s = bfr.readLine();
+                while (s != null) {
+                    System.out.println(s);//prints the user submission line by line
+                    s = bfr.readLine();
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Would you like to view more submissions? [Y/N]");//checks if user wants to
+            // view more submissions
+            prompt = input.nextLine();
+        } while ( prompt.equals("Y")); // continues while the user says yes
+    }
+	
 }
