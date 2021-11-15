@@ -160,6 +160,58 @@ public class RunLocalTest {
                 fail();
             }
         }
+        //Test for Student to take Quiz in CS259
+        @Test
+        public void testExpectedSix() {
+            try {
+                String input = "2" + System.lineSeparator() +
+                        "S" + System.lineSeparator() +
+                        "S" + System.lineSeparator() +
+                        "1" + System.lineSeparator() +
+                        "CS259" + System.lineSeparator() +
+                        "Quiz1" + System.lineSeparator() +
+                        "2" + System.lineSeparator() +
+                        "A" + System.lineSeparator() +
+                        "3" + System.lineSeparator();
+                String expected = "Welcome to the Quiz Learning Program\n" +
+                        "1. Create Account\n" +
+                        "2. Log in\n" +
+                        "3. Exit" + System.lineSeparator() +
+                        "Enter a username: " + System.lineSeparator() +
+                        "Enter a password: " + System.lineSeparator() +
+                        "Welcome Student S\n" +
+                        "1. Take Quiz\n" +
+                        "2. View Submissions\n" +
+                        "3. Exit\n" + System.lineSeparator() +
+                        "Available Courses:\n" +
+                        "CS259\n" +
+                        "Which course would you like to access: \n" + System.lineSeparator() +
+                        "Available Quizzes:\n" +
+                        "Quiz1\n" +
+                        "Which quiz would you like to take: " + System.lineSeparator() +
+                        "Test 1 Question\n" +
+                        "A. Test A\nB. Test B\nC. Test C\nD. Test D\nHow would you like to answer this question" +
+                        "\n1. Import files\n2. Answer through terminal\n" +System.lineSeparator() +
+                        "Please enter your answer option.\n" +
+                        "1. Take Quiz\n" +
+                        "2. View Submissions\n" +
+                        "3. Exit" + System.lineSeparator() +
+                        "Logged Out\nHave a Good Day";
+                receiveInput(input);
+                Driver.main(new String[0]);
+
+                //Retrieves the output from the program
+                String actual = getOutput();
+
+                // Trims the output and verifies it is correct.
+                assertEquals("Verify you follow the handout and use the given strings for the output!",
+                        expected.trim(), actual.trim());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                fail();
+            }
+        }
 //Test for logging in and logging out for teacher
         @Test(timeout = 1000)
         public void testExpectedTwo() {
@@ -294,6 +346,7 @@ public class RunLocalTest {
                         "Enter Quiz Name you wish to see submissions for: \n" + System.lineSeparator() +
                         "Available Submissions\nS\n\nEnter Submission you wish to view\n" + System.lineSeparator() +
                         "Name: S\n1. Student Answer: A, Correct: 1\nPoints Earned : 1\nTimestamp: 2021.11.15.15.07.15" +
+                        // Time stamp will change for each test
                         "\n\n" +
                         "1. Create Course\n" +
                         "2. View Course\n" +
