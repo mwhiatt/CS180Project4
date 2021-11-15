@@ -258,10 +258,10 @@ public class Driver {
 					try {
 						System.out.println("1. Take Quiz\n2. View Submissions\n3. Exit");
 						ongoingChoice = input.nextInt();
-						input.nextLine();
 					} catch (InputMismatchException e) {
 						System.out.println("Enter a integer choice");
 						ongoingChoice = 4;
+						input.nextLine();
 					}
 					if (ongoingChoice < 1 || ongoingChoice > 3) 
 						System.out.println("Invalid selection");
@@ -271,6 +271,7 @@ public class Driver {
 				if (ongoingChoice == 1) {
 					//Takes quiz
 					//lists courses
+					input.nextLine();
 					System.out.println("\nAvailable Courses:");
 					Teacher.printCourses();
 					System.out.println("Which course would you like to access: ");
@@ -293,6 +294,7 @@ public class Driver {
 				} else if (ongoingChoice == 2) {
 					//views submissions
 					//lists courses
+					input.nextLine();
 					System.out.println("\nAvailable Courses:");
 					Teacher.printCourses();
 					System.out.println("Which course would you like to access: ");
