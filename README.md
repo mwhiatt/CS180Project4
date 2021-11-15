@@ -28,7 +28,7 @@ Class Descriptions:
 	 method takes in the name a user enters to submit as an answer for a question and reads it in, it then returns that value to be  
 	 treated as a terminal answer would be by the answer method. The viewSubmissions method takes in a course and quiz name and then  
 	 searches through the submissions master list for any submission containing the username of the current user. It allows them to pick  
-	 one of these submissions to view.
+	 one of these submissions to view.  
 	-Teacher: The Teacher class contains the methods responsible for the teacher functionality as well as some quality of life methods  
 	 that are used in driver to reduce code recycling. The createCourse method creates the quiz title master file for the course as well  
 	 as adds the course title to the CourseNames file. The deleteCourse method delets a course from the CourseNames file and deletes all   
