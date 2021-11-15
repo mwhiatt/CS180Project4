@@ -17,12 +17,12 @@ public class Teacher {
 
             if (newFileQuiz.createNewFile()) {
                 System.out.println("Creating a new file!");
+                PrintWriter myWriter = new PrintWriter(new FileOutputStream("CourseNames.txt", true));
+                myWriter.write(courseName + "\n");
+                myWriter.close();
             } else {
                 System.out.println("The course already exists!");
             }
-            PrintWriter myWriter = new PrintWriter(new FileOutputStream("CourseNames.txt", true));
-            myWriter.write(courseName + "\n");
-            myWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error writing to file. Try again.");
