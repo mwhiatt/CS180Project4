@@ -1,6 +1,8 @@
 import org.junit.Test;
 import org.junit.After;
+
 import java.lang.reflect.Field;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.rules.Timeout;
@@ -127,9 +129,11 @@ public class RunLocalTest {
                         "CS259\n\n" +
                         "Enter a Course Name: " + System.lineSeparator() +
                         "1. Delete Course\n2. View Quizzes\n" + System.lineSeparator() +
-                        "View Menu\n1. Create Quiz\n2. Edit Quiz\n3. Delete Quiz\n4. View Submissions" + System.lineSeparator() +
+                        "View Menu\n1. Create Quiz\n2. Edit Quiz\n3. Delete Quiz\n4. View Submissions"
+                        + System.lineSeparator() +
                         "Would you like to import a quiz? Yes or No" +
-                        " (If no, you will be directed to create a file inside terminal immediately)" + System.lineSeparator() +
+                        " (If no, you will be directed to create a file inside terminal immediately)" 
+                        + System.lineSeparator() +
                         "What would you like to name the quiz?" + System.lineSeparator() +
                         "Creating a new file!\nPlease write the question" + System.lineSeparator() +
                         "Please write answer A):" + System.lineSeparator() +
@@ -160,6 +164,7 @@ public class RunLocalTest {
                 fail();
             }
         }
+
         //Test for Student to take Quiz in CS259
         @Test
         public void testExpectedSix() {
@@ -191,7 +196,7 @@ public class RunLocalTest {
                         "Which quiz would you like to take: " + System.lineSeparator() +
                         "Test 1 Question\n" +
                         "A. Test A\nB. Test B\nC. Test C\nD. Test D\nHow would you like to answer this question" +
-                        "\n1. Import files\n2. Answer through terminal\n" +System.lineSeparator() +
+                        "\n1. Import files\n2. Answer through terminal\n" + System.lineSeparator() +
                         "Please enter your answer option.\n" +
                         "1. Take Quiz\n" +
                         "2. View Submissions\n" +
@@ -212,6 +217,7 @@ public class RunLocalTest {
                 fail();
             }
         }
+
         //Test for logging in and logging out for teacher
         @Test(timeout = 1000)
         public void testExpectedTwo() {
@@ -282,7 +288,8 @@ public class RunLocalTest {
                         "CS259\n\n" +
                         "Enter a Course Name: " + System.lineSeparator() +
                         "1. Delete Course\n2. View Quizzes\n" + System.lineSeparator() +
-                        "View Menu\n1. Create Quiz\n2. Edit Quiz\n3. Delete Quiz\n4. View Submissions\n" + System.lineSeparator() +
+                        "View Menu\n1. Create Quiz\n2. Edit Quiz\n3. Delete Quiz\n4. View Submissions\n" 
+                        + System.lineSeparator() +
                         "Available Quizzes:\nQuiz1\n" + System.lineSeparator() +
                         "Enter Quiz Name you wish to edit: \n" + System.lineSeparator() +
                         "Which question would you like to edit?" + System.lineSeparator() +
@@ -341,7 +348,8 @@ public class RunLocalTest {
                         "CS259\n\n" +
                         "Enter a Course Name: " + System.lineSeparator() +
                         "1. Delete Course\n2. View Quizzes\n" + System.lineSeparator() +
-                        "View Menu\n1. Create Quiz\n2. Edit Quiz\n3. Delete Quiz\n4. View Submissions\n" + System.lineSeparator() +
+                        "View Menu\n1. Create Quiz\n2. Edit Quiz\n3. Delete Quiz\n4. View Submissions\n" 
+                        + System.lineSeparator() +
                         "Available Quizzes:\nQuiz1\n" + System.lineSeparator() +
                         "Enter Quiz Name you wish to see submissions for: \n" + System.lineSeparator() +
                         "Available Submissions\nS\n\nEnter Submission you wish to view\n" + System.lineSeparator() +
