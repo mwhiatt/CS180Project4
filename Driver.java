@@ -71,6 +71,8 @@ public class Driver {
 					}
 				} catch (InputMismatchException e) {
 					System.out.println(wrongType);
+					choice = 0;
+					input.nextLine();
 				}
 			} while (choice < 1 || choice > 2);
 			if (choice == 1) {
