@@ -1,4 +1,6 @@
 # CS180Project4
+NOTE: We did not use github to write the project originally, the commit log is not an accurate depiction of the work split.  
+The work split is detailed in the report. Apologies.  
 Our CS180 project to construct the quiz tool of a learning management system.   
 To run the project, ensure the following files are included in your directory:  
 	-Login.java  
