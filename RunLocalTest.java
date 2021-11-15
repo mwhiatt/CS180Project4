@@ -83,7 +83,7 @@ public class RunLocalTest {
         }
 
 
-//to test creating quiz with teacher
+        //to test creating quiz with teacher
         @Test
         public void testExpectedOne() {
             try {
@@ -212,7 +212,7 @@ public class RunLocalTest {
                 fail();
             }
         }
-//Test for logging in and logging out for teacher
+        //Test for logging in and logging out for teacher
         @Test(timeout = 1000)
         public void testExpectedTwo() {
             try {
