@@ -83,7 +83,7 @@ public class RunLocalTest {
         }
 
 
-//pathway test 1. Aryan needs to upload according .txt files for this to work
+//to test creating quiz with teacher
         @Test
         public void testExpectedOne() {
             try {
@@ -160,7 +160,7 @@ public class RunLocalTest {
                 fail();
             }
         }
-//pathway test 2
+//Test for logging in and logging out for teacher
         @Test(timeout = 1000)
         public void testExpectedTwo() {
             try {
@@ -194,79 +194,153 @@ public class RunLocalTest {
                 fail();
             }
         }
-        //pathway test 3. Doesn't work yet because of input.nextLine() stuff
-//        @Test(timeout = 1000)
-//        public void testExpectedThree() {
-//            try {
-//                String input = Integer.parseInt("1") + System.lineSeparator() +
-//                        Integer.parseInt("2") + System.lineSeparator() +
-//                        "Aniket" + System.lineSeparator() +
-//                        "Aniket1" + System.lineSeparator() +
-//                        "1" + System.lineSeparator() +
-//                        Integer.parseInt("1") + System.lineSeparator() + " " + System.lineSeparator() +
-//                        "CS180" + System.lineSeparator() +
-//                        "Geography" + System.lineSeparator() +
-//                        Integer.parseInt("2") + System.lineSeparator() +
-//                        "A" + System.lineSeparator() +
-//                        Integer.parseInt("2") + System.lineSeparator() +
-//                        "B" + System.lineSeparator() +
-//                        Integer.parseInt("2");
-//                String expected = "Welcome to the Quiz Learning Program\n" +
-//                        "1. Create Account\n" +
-//                        "2. Log in\n" +
-//                        "3. Exit" + System.lineSeparator() +
-//                        "1. Teacher\n" +
-//                        "2. Student" + System.lineSeparator() +
-//                        "Enter a username:" + System.lineSeparator() +
-//                        "Sorry that username is taken, please try a new one." + System.lineSeparator() +
-//                        "Enter a username:" + System.lineSeparator() +
-//                        "Enter a password:" + System.lineSeparator() +
-//                        "Welcome Student Aniket1\n" +
-//                        "1. Take Quiz\n" +
-//                        "2. Exit" + System.lineSeparator() +
-//                        "Available Courses:\n" +
-//                        "CS180" + System.lineSeparator() +
-//                        "Which course would you like to access:" + System.lineSeparator() +
-//                        "Available Quizzes:\n" +
-//                        "Geography" + System.lineSeparator()+
-//                        "Which quiz would you like to take:" + System.lineSeparator() +
-//                        "What is the capital of Maine?\n" +
-//                        "A. Augusta\n" +
-//                        "B. San Jose\n" +
-//                        "C. Austin\n" +
-//                        "D. Chicago" + System.lineSeparator() +
-//                        "How would you like to answer this question\n" +
-//                        "1. Import files\n" +
-//                        "2. Answer through terminal" + System.lineSeparator() +
-//                        "Please enter your answer option." + System.lineSeparator()+
-//                        "What is the capital of Illinois?\n" +
-//                        "A. Boise\n" +
-//                        "B. Springfield\n" +
-//                        "C. Oklahoma City\n" +
-//                        "D. Austin" + System.lineSeparator() +
-//                        "How would you like to answer this question\n" +
-//                        "1. Import files\n" +
-//                        "2. Answer through terminal" + System.lineSeparator() +
-//                        "Please enter your answer option." + System.lineSeparator() +
-//                        "1. Take Quiz\n" +
-//                        "2. Exit" + System.lineSeparator() +
-//                        "Logged Out\n" +
-//                        "Have a Good Day\n";
-//                receiveInput(input);
-//                Driver.main(new String[0]);
-//
-//                //Retrieves the output from the program
-//                String actual = getOutput();
-//
-//                // Trims the output and verifies it is correct.
-//                assertEquals("Path 3",
-//                        expected.trim(), actual.trim());
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                fail();
-//            }
-//        }
+
+        @Test
+        public void testExpectedThree() {
+            try {
+                String input = "2" + System.lineSeparator() +
+                        "T" + System.lineSeparator() +
+                        "T" + System.lineSeparator() +
+                        "2" + System.lineSeparator() +
+                        "CS259" + System.lineSeparator() +
+                        "2" + System.lineSeparator() +
+                        "2" + System.lineSeparator() +
+                        "Quiz1" + System.lineSeparator() +
+                        "1" + System.lineSeparator() +
+                        "Test 1 Question Test Three" + System.lineSeparator() +
+                        "Test A" + System.lineSeparator() +
+                        "Test B" + System.lineSeparator() +
+                        "Test C" + System.lineSeparator() +
+                        "Test D" + System.lineSeparator() +
+                        "A" + System.lineSeparator() +
+                        "Yes" + System.lineSeparator() +
+                        "1" + System.lineSeparator() +
+                        "3" + System.lineSeparator();
+                String expected = "Welcome to the Quiz Learning Program\n" +
+                        "1. Create Account\n" +
+                        "2. Log in\n" +
+                        "3. Exit" + System.lineSeparator() +
+                        "Enter a username: " + System.lineSeparator() +
+                        "Enter a password: \n" + System.lineSeparator() +
+                        "Welcome Teacher T\n" +
+                        "1. Create Course\n" +
+                        "2. View Course\n" +
+                        "3. Exit\n" + System.lineSeparator() +
+                        "Available Courses:\n" +
+                        "CS259\n\n" +
+                        "Enter a Course Name: " + System.lineSeparator() +
+                        "1. Delete Course\n2. View Quizzes\n" + System.lineSeparator() +
+                        "View Menu\n1. Create Quiz\n2. Edit Quiz\n3. Delete Quiz\n4. View Submissions\n" + System.lineSeparator() +
+                        "Available Quizzes:\nQuiz1\n" + System.lineSeparator() +
+                        "Enter Quiz Name you wish to edit: \n" + System.lineSeparator() +
+                        "Which question would you like to edit?" + System.lineSeparator() +
+                        "Please write the question" + System.lineSeparator() +
+                        "Please write answer A):" + System.lineSeparator() +
+                        "Please write answer B):" + System.lineSeparator() +
+                        "Please write answer C):" + System.lineSeparator() +
+                        "Please write answer D):" + System.lineSeparator() +
+                        "Please write which letter is the answer:" + System.lineSeparator() +
+                        "What you like to put a point value in? Yes or No" + System.lineSeparator() +
+                        "Please input a value (digit):" + System.lineSeparator() +
+                        "1. Create Course\n" +
+                        "2. View Course\n" +
+                        "3. Exit" + System.lineSeparator() +
+                        "Logged Out\nHave a Good Day";
+                receiveInput(input);
+                Driver.main(new String[0]);
+
+                //Retrieves the output from the program
+                String actual = getOutput();
+
+                // Trims the output and verifies it is correct.
+                assertEquals("Verify you follow the handout and use the given strings for the output!",
+                        expected.trim(), actual.trim());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                fail();
+            }
+        }
+
+        @Test
+        public void testExpectedFour() {
+            try {
+                String input = "2" + System.lineSeparator() +
+                        "T" + System.lineSeparator() +
+                        "T" + System.lineSeparator() +
+                        "2" + System.lineSeparator() +
+                        "CS259" + System.lineSeparator() +
+                        "2" + System.lineSeparator() +
+                        "4" + System.lineSeparator() +
+                        "Quiz1" + System.lineSeparator() +
+                        "S" + System.lineSeparator() +
+                        "3" + System.lineSeparator();
+                String expected = "Welcome to the Quiz Learning Program\n" +
+                        "1. Create Account\n" +
+                        "2. Log in\n" +
+                        "3. Exit" + System.lineSeparator() +
+                        "Enter a username: " + System.lineSeparator() +
+                        "Enter a password: \n" + System.lineSeparator() +
+                        "Welcome Teacher T\n" +
+                        "1. Create Course\n" +
+                        "2. View Course\n" +
+                        "3. Exit\n" + System.lineSeparator() +
+                        "Available Courses:\n" +
+                        "CS259\n\n" +
+                        "Enter a Course Name: " + System.lineSeparator() +
+                        "1. Delete Course\n2. View Quizzes\n" + System.lineSeparator() +
+                        "View Menu\n1. Create Quiz\n2. Edit Quiz\n3. Delete Quiz\n4. View Submissions\n" + System.lineSeparator() +
+                        "Available Quizzes:\nQuiz1\n" + System.lineSeparator() +
+                        "Enter Quiz Name you wish to see submissions for: \n" + System.lineSeparator() +
+                        "Available Submissions\nS\n\nEnter Submission you wish to view\n" + System.lineSeparator() +
+                        "Name: S\n1. Student Answer: A, Correct: 1\nPoints Earned : 1\nTimestamp: 2021.11.15.15.07.15" +
+                        "\n\n" +
+                        "1. Create Course\n" +
+                        "2. View Course\n" +
+                        "3. Exit" + System.lineSeparator() +
+                        "Logged Out\nHave a Good Day";
+                receiveInput(input);
+                Driver.main(new String[0]);
+
+                //Retrieves the output from the program
+                String actual = getOutput();
+
+                // Trims the output and verifies it is correct.
+                assertEquals("Verify you follow the handout and use the given strings for the output!",
+                        expected.trim(), actual.trim());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                fail();
+            }
+        }
+
+        @Test(timeout = 1000)
+        public void testExpectedFive() {
+            try {
+                String input = "3" + System.lineSeparator();
+                String expected = "Welcome to the Quiz Learning Program\n" +
+                        "1. Create Account\n" +
+                        "2. Log in\n" +
+                        "3. Exit" + System.lineSeparator() +
+                        "Logged Out\nHave a Good Day";
+                receiveInput(input);
+                Driver.main(new String[0]);
+
+                //Retrieves the output from the program
+                String actual = getOutput();
+
+                // Trims the output and verifies it is correct.
+                assertEquals("Verify you follow the handout and use the given strings for the output!",
+                        expected.trim(), actual.trim());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                fail();
+            }
+        }
+
+
     }
 }
 
