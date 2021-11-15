@@ -235,7 +235,7 @@ public class Teacher {
                     System.out.println("Please write the question");
                     myWriter.write(input.nextLine() + "\n");
                     System.out.println("Please write answer A):");
-                    myWriter.write("A." + input.nextLine() + "\n");
+                    myWriter.write("A. " + input.nextLine() + "\n");
                     System.out.println("Please write answer B):");
                     myWriter.write("B. " + input.nextLine() + "\n");
                     System.out.println("Please write answer C):");
